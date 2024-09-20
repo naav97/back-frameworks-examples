@@ -1,0 +1,18 @@
+Bank
+
+Objects:
+- Users
+- Transactions
+
+Users: User name, Password, Balance
+Transacition: FK UiserFrom, FK UserTo, amount
+
+API endpoints:
+- Create account
+- Login
+- get balance
+- add to balance
+- remove from balance
+- delete account
+- send money to
+- see my transactions
