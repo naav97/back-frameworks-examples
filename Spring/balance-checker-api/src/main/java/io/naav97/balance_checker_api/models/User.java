@@ -1,9 +1,12 @@
-package io.naav97.balance_checker_api;
+package io.naav97.balance_checker_api.models;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "customer")
 public class User {
 
   private @Id @GeneratedValue Long id;

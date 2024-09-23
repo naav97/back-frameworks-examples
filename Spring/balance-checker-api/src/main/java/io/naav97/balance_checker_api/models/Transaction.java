@@ -1,4 +1,4 @@
-package io.naav97.balance_checker_api;
+package io.naav97.balance_checker_api.models;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
@@ -9,13 +9,13 @@ import jakarta.persistence.Id;
 public class Transaction {
 
   private @Id @GeneratedValue Long id;
-  private Long user_id;
+  private Long userId;
   private String type;
   private double amount;
   private LocalDateTime time;
 
   public Long get_user_id() {
-    return this.user_id;
+    return this.userId;
   }
 
   public String get_type() {
@@ -31,7 +31,7 @@ public class Transaction {
   }
 
   public void set_user_id(Long p_uid) {
-    this.user_id = p_uid;
+    this.userId = p_uid;
   }
 
   public void set_type(String p_type) {
