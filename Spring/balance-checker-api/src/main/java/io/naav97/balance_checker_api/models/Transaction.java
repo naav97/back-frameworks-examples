@@ -10,7 +10,7 @@ public class Transaction {
 
   private @Id @GeneratedValue Long id;
   private Long userId;
-  private String type;
+  private String type; // add remove no transactions between users
   private double amount;
   private LocalDateTime time;
 
