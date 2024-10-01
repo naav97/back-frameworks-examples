@@ -9,13 +9,18 @@ import jakarta.persistence.Id;
 public class Transaction {
 
   private @Id @GeneratedValue Long id;
-  private Long userId;
-  private String type; // add remove no transactions between users
+  private Long userFrom;
+  private Long userTo;
+  private String type;
   private double amount;
   private LocalDateTime time;
 
-  public Long get_user_id() {
-    return this.userId;
+  public Long get_user_from() {
+    return this.userFrom;
+  }
+
+  public Long get_user_to() {
+    return this.userTo;
   }
 
   public String get_type() {
@@ -30,8 +35,12 @@ public class Transaction {
     return this.time;
   }
 
-  public void set_user_id(Long p_uid) {
-    this.userId = p_uid;
+  public void set_user_from(Long p_uid) {
+    this.userFrom = p_uid;
+  }
+
+  public void set_user_to(Long p_uid) {
+    this.userTo = p_uid;
   }
 
   public void set_type(String p_type) {
