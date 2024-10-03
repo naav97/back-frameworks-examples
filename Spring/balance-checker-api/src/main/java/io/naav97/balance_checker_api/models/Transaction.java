@@ -9,22 +9,17 @@ import jakarta.persistence.Id;
 public class Transaction {
 
   private @Id @GeneratedValue Long id;
-  private Long userFrom;
-  private Long userTo;
-  private String type;
+  private String userFrom;
+  private String userTo;
   private double amount;
   private LocalDateTime time;
 
-  public Long get_user_from() {
+  public String get_user_from() {
     return this.userFrom;
   }
 
-  public Long get_user_to() {
+  public String get_user_to() {
     return this.userTo;
-  }
-
-  public String get_type() {
-    return this.type;
   }
 
   public double get_amount() {
@@ -35,16 +30,12 @@ public class Transaction {
     return this.time;
   }
 
-  public void set_user_from(Long p_uid) {
+  public void set_user_from(String p_uid) {
     this.userFrom = p_uid;
   }
 
-  public void set_user_to(Long p_uid) {
+  public void set_user_to(String p_uid) {
     this.userTo = p_uid;
-  }
-
-  public void set_type(String p_type) {
-    this.type = p_type;
   }
 
   public void set_amount(double p_amo) {
