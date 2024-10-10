@@ -1,6 +1,7 @@
 package io.naav97.balance_checker_api.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,9 @@ public class TransService {
     trans.set_amount(amount);
     trans.set_time(time);
     return trans_repo.save(trans);
+  }
+
+  public List<Transaction> get_all(String user) {
+    return trans_repo.findByUserFromOrUserTo(user, user);
   }
 }
