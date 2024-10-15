@@ -1,8 +1,6 @@
 1) Spring Boot
-2) LibOnion
-3) CppCMS
-4) Gin
-5) Actix Web0
-6) Zig HTTP Server
-7) Yesod
-8) Phoenix
+3) Gin
+4) Actix Web0
+5) Zig HTTP Server
+6) Yesod
+7) Phoenix
