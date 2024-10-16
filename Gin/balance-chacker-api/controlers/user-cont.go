@@ -59,6 +59,11 @@ func AddBalance(c *gin.Context) {
   }
 
   user.Balance = user.Balance + details.Amount
+  models.UpdateUserByUsername(Username, *user)
 
   c.JSON(http.StatusOK, gin.H{"message": "Balance updated successfully"})
+}
+
+func ListAllUsers(c *gin.Context) {
+  c.JSON(http.StatusOK, models.GetAllUsers())
 }

@@ -32,3 +32,7 @@ func UpdateUserByUsername(un string, nu User) {
     }
   }
 }
+
+func GetAllUsers() []User {
+  return Users
+}
