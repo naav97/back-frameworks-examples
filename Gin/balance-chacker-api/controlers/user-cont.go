@@ -4,6 +4,7 @@ import (
   "balance-checker-api/models"
   "github.com/gin-gonic/gin"
   "net/http"
+  "golang.org/x/crypto/bcrypt"
 )
 
 var userIdCount = 0
@@ -14,6 +15,12 @@ func CreateUser(c *gin.Context) {
     c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
     return
   }
+  hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+  if err != nil {
+    c.JSON(http.StatusInternalServerError, gin.H{"error":"Failed to hash password"})
+    return
+  }
+  user.Password = string(hash)
   user.Id = userIdCount
   userIdCount++
   models.AddUser(user)
@@ -32,8 +39,14 @@ func LogIn(c *gin.Context) {
   }
 
   user, err := models.GetUserByUsername(credentials.Username)
-  if err != nil || user.Password != credentials.Password {
-    c.JSON(http.StatusBadRequest, gin.H{"error": "invalid credentials"})
+  if err != nil {
+    c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid credentials"})
+    return
+  }
+
+  err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(credentials.Password))
+  if err != nil {
+    c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
     return
   }
 
