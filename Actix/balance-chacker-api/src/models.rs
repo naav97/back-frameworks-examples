@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use uui::Uuid;
+use uuid::Uuid;
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct User {
