@@ -10,6 +10,11 @@ pub struct UserInput {
     pub password: String,
 }
 
+#[derive(serde::Deserialize)]
+pub struct BalanceInput {
+    pub amount: f64,
+}
+
 async fn create_user(data: web::Data<AppState>, input: web::Json<UserInput>) -> impl Responder {
     let pass_hash = hash(&input.password, DEFAULT_COST).unwrap();
     let user = User {
@@ -37,10 +42,28 @@ async fn login(data: web::Data<AppState>, input: web::Json<UserInput>) -> impl R
     HttpResponse::Unauthorized().body("Invalid credentials")
 }
 
+async fn add_balance(data: web::Data<AppState>, input: web::Json<BalanceInput>, user_id: web::Path<String>) -> impl Responder {
+    let mut users = data.users.lock().unwrap();
+
+    if let Some(user) = users.iter_mut().find(|u| u.username == *user_id) {
+        user.balance = user.balance + input.amount;
+        return HttpResponse::Ok().json(user);
+    }
+
+    HttpResponse::NotFound().body("User not found")
+}
+
+async fn list(data: web::Data<AppState>) -> impl Responder {
+    let users = data.users.lock().unwrap();
+    HttpResponse::Ok().json(&*users)
+}
+
 pub fn user_routes(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/user")
             .route("/create", web::post().to(create_user))
             .route("/login", web::post().to(login))
+            .route("/{user_id}/addb", web::put().to(add_balance))
+            .route("/", web::get().to(list))
     );
 }
