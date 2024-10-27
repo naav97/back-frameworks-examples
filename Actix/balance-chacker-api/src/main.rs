@@ -2,6 +2,7 @@ use actix_web::{web, App, HttpServer};
 use std::sync::Mutex;
 mod models;
 mod user;
+mod trans;
 use models::{User, Transaction};
 
 struct AppState {
@@ -20,6 +21,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .app_data(data.clone())
             .configure(user::user_routes)
+            .configure(trans::trans_routes)
     })
     .bind("127.0.0.1:8080")?
     .run()
